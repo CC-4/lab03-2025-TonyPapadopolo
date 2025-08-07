@@ -92,7 +92,7 @@ EXP = "^"
 LPAREN = "("
 RPAREN = ")"
 UNARY = "~"
-NUMBER = ([0-9])+((\.)?([0-9])*)?((EXP)(PLUS|MINUS)?([0-9])+)?
+NUMBER = ([0-9])+((\.)?([0-9])*)?((E|e)(+-)?([0-9])+)?
 WHITESPACE = (" "|\t|\n)
 
 %%
@@ -100,6 +100,8 @@ WHITESPACE = (" "|\t|\n)
 
 
 <YYINITIAL> {SEMI}          { return new Token(Token.SEMI);      }
+
+<YYINITIAL> {NUMBER}        { return new Token(Token.NUMBER, yytext());  }
 
 <YYINITIAL> {PLUS}          { return new Token(Token.PLUS);      }
 
@@ -118,8 +120,6 @@ WHITESPACE = (" "|\t|\n)
 <YYINITIAL> {RPAREN}        { return new Token(Token.RPAREN);    }
 
 <YYINITIAL> {UNARY}         { return new Token(Token.UNARY);     }
-
-<YYINITIAL> {NUMBER}        { return new Token(Token.NUMBER, yytext());  }
 
 <YYINITIAL>{WHITESPACE}     {        /* NO HACER NADA */         }
 
