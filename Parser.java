@@ -129,13 +129,22 @@ public class Parser {
 
     }
 
-    private boolean S() {
-        return E() && term(Token.SEMI);
-    }
+    private boolean S() { return A() && term(Token.SEMI); }
 
-    private boolean E() {
-        return false;
-    }
+    private boolean A() { return B() && Ap(); }
 
-    /* TODO: sus otras funciones aqui */
+    private boolean B() { return C() && Bp(); }
+
+    private boolean C() { return D() && Cp(); }
+
+    private boolean D() { return (term(Token.LPAREN) && A() && term(Token.RPAREN)) || (term(Token.UNARY) && D()) || term(Token.NUMBER); }
+
+    private boolean Ap() { return (term(Token.PLUS) && B() && Ap()) || (term(Token.MINUS) && B() && Ap()) || (true); }
+
+    private boolean Bp() { return (term(Token.MULT) && C() && Bp()) || (term(Token.DIV) && C() && Bp()) || (term(Token.MOD) && C() && Bp()) || (true); }
+
+    private boolean Cp() { return (term(Token.EXP) && C()) || (true); }
+
+    //NOTA: true hace el papel de "lambda"
+
 }

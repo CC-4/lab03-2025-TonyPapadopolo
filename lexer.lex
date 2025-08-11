@@ -92,12 +92,10 @@ EXP = "^"
 LPAREN = "("
 RPAREN = ")"
 UNARY = "~"
-NUMBER = ([0-9])+((\.)?([0-9])*)?((E|e)(+-)?([0-9])+)?
+NUMBER = ([0-9])+((\.)?([0-9])*)?((E|e)[+-]?([0-9])+)?
 WHITESPACE = (" "|\t|\n)
 
 %%
-
-
 
 <YYINITIAL> {SEMI}          { return new Token(Token.SEMI);      }
 
